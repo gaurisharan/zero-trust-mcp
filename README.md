@@ -45,6 +45,8 @@ We implement a rigorous **Attribute-Based Access Control (ABAC)** model. No AI a
 5.  **Enforcement:**
     * **PERMIT:** The PEP allows the tool to execute.
     * **DENY:** The PEP blocks the request immediately, logging the violation for audit.
+  
+! [image](Diagram.png)
 
 ---
 
