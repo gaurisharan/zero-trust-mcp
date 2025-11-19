@@ -134,7 +134,7 @@ We use **Kubernetes Network Policies** to enforce a **"Default Deny"** stance.
 
 ---
 
-## 6. Building a Secure MCP Infrastructure (Step-by-Step) 🛠️
+## 6. Building a Secure MCP Infrastructure (Step-by-Step) 
 
 ### Step 1: Define Your Identity Model
 
@@ -161,7 +161,7 @@ This provides the **"black box" recorder** needed to debug or detect an active a
 
 ---
 
-## 7. Security Checklist ✅
+## 7. Security Checklist 
 
 * [**X**] **Externalize Auth:** Remove all `if/else` permission logic from the MCP Server code.
 * [**X**] **Fail Closed:** If the PDP is unreachable, the MCP Server **must deny all requests**.
@@ -171,7 +171,7 @@ This provides the **"black box" recorder** needed to debug or detect an active a
 
 ---
 
-## 8. Future Improvements 🚀
+## 8. Future Improvements 
 
 * **Just-in-Time (JIT) Access:** The Agent requests permission for a high-stakes tool, triggering a **human-in-the-loop approval** (e.g., via Slack/Teams). The PDP then updates the policy to PERMIT for a short window.
 * **Risk-Based Auth:** Feeding **"Prompt Risk Score"** (from a separate guardrail model) into the PDP context, so risky prompts are automatically denied sensitive tools.
