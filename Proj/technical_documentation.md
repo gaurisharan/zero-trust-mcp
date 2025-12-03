@@ -44,48 +44,23 @@ The architecture uses the **PDP/PEP pattern** (Policy Decision Point / Policy En
 
 ## Architecture Overview
 
-### 3.1 High-Level System Design
+### 3.1 High-Level Architecture
 
-graph TB
-Agent["🤖 AI Agent / LLM Client"]Agent -->|JSON-RPC Request<br/>X-User-ID, X-Agent-ID| Pod["Kubernetes Pod<br/>MCP Server"]
+| Component | Technology | Purpose |
+|-----------|-----------|---------|
+| **AI Agent** | LLM Framework | Sends JSON-RPC requests with identity headers |
+| **PEP (Main)** | FastAPI/Go | Intercepts requests, extracts identity, queries PDP |
+| **PDP (Sidecar)** | Rust/Cedar | Evaluates policies, returns PERMIT/DENY decisions |
+| **Policies** | Cedar Language | Security rules in YAML/JSON format |
+| **Audit Logger** | CloudWatch/Datadog | Centralized immutable audit trail |
+| **Backend** | PostgreSQL/APIs | Executes authorized tool operations |
 
-subgraph Pod["Kubernetes Pod - MCP Server"]
-    direction LR
-    
-    subgraph PEP["Main Container - PEP Layer"]
-        FastAPI["⚡ FastAPI/Go<br/>MCP Server"]
-        Middleware["🔐 Middleware<br/>Interceptor"]
-        Tools["🛠️ Tools &<br/>Resources"]
-        
-        FastAPI --> Middleware
-        Middleware --> Tools
-    end
-    
-    subgraph PDP["Sidecar Container - PDP Layer"]
-        Cedar["🦀 Cedar Engine<br/>Rust"]
-        Evaluator["📋 Policy<br/>Evaluator"]
-        Store["💾 Policy Store<br/>YAML/JSON"]
-        
-        Cedar --> Evaluator
-        Evaluator --> Store
-    end
-    
-    Middleware -->|Auth Query| Cedar
-    Cedar -->|permit/deny| Middleware
-end
-
-Pod -->|Audit Events| AuditLog["📊 Centralized<br/>Audit Logger"]
-Pod -->|Tool Execution| Backend["🗄️ Backend APIs<br/>& Databases"]
-
-style Agent fill:#e1f5ff
-style Pod fill:#f3e5f5
-style PEP fill:#fff3e0
-style PDP fill:#e8f5e9
-style FastAPI fill:#fff9c4
-style Cedar fill:#f1f8e9
-style AuditLog fill:#ffebee
-style Backend fill:#ede7f6
-
+**Data Flow:**
+Agent → PEP (Identity Extraction)
+→ PDP (Policy Evaluation)
+→ PEP (Enforcement)
+→ Audit Logger (Logging)
+→ Backend (Execution)
 
 ### 3.2 Request Flow Sequence
 
