@@ -1961,10 +1961,10 @@ curl -X POST http://localhost:8000/rpc \
 
 ### File Structure
 ```
-â”œâ”€â”€ pep/
-â”‚   â”œâ”€â”€ main.py                   # FastAPI application
-â”‚   â”œâ”€â”€ middleware/
-â”‚   â”‚   â””â”€â”€ auth_interceptor.py   # Authorization middleware
+------pep/
+|-----â”œâ”€â”€ main.py                   # FastAPI application
+|-----â”œâ”€â”€ middleware/
+|-----â”‚   â””â”€â”€ auth_interceptor.py   # Authorization middleware
 â”‚   â”œâ”€â”€ config.yml                # PEP configuration
 â”‚   â””â”€â”€ Dockerfile
 â”œâ”€â”€ pdp/
